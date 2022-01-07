@@ -1,5 +1,7 @@
 from __future__ import annotations
 from typing import Iterable, Sequence
+import sys
+
 
 
 class Sudoku:
@@ -15,6 +17,8 @@ class Sudoku:
                 row += str(element)
 
             self._grid.append(row)
+
+        #print(self._grid[0][0])
     # new method check if they are the same, instead of having to: assert solution.value_at and assert untouched.value_at
     def __eg__(self, other):
         return self.__dict__ == other.__dict__
@@ -40,17 +44,23 @@ class Sudoku:
 
     def value_at(self, x: int, y: int) -> int:
         """Returns the value at x,y."""
-        value = -1
-        for i in range(9):
-            for j in range(9):
-                if i == x and j == y:
-                    row = self._grid[y]
-                    value = int(row[x])
+        #for i in range(9):
+        #    for j in range(9):
+        #        if i == x and j == y:
+        row = self._grid[y]
+        value = int(row[x])
         # test: took too long for output, cancelled
         #if x and y <= 8:
         #    row = self._grid[y]
         #    value = int(row[x])
         #else:
+        #    value = -1
+        # got an error: why?? this has to work?
+        #if x and y <= 8:
+            #value = self._grid[x][y]
+        #    value = int(self._grid[0][0])
+            #print(value)
+       # else:
         #    value = -1
 
         return value
@@ -100,8 +110,6 @@ class Sudoku:
 
         for j in range(9):
             values.append(self.value_at(j, i))
-        # error
-        # values = self._grid[i]
 
         return values
 
