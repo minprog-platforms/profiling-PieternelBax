@@ -15,6 +15,9 @@ class Sudoku:
                 row += str(element)
 
             self._grid.append(row)
+    # new method check if they are the same, instead of having to: assert solution.value_at and assert untouched.value_at
+    def __eg__(self, other):
+        return self.__dict__ == other.__dict__
 
     def place(self, value: int, x: int, y: int) -> None:
         """Place value at x,y."""
@@ -38,12 +41,17 @@ class Sudoku:
     def value_at(self, x: int, y: int) -> int:
         """Returns the value at x,y."""
         value = -1
-
         for i in range(9):
             for j in range(9):
                 if i == x and j == y:
                     row = self._grid[y]
                     value = int(row[x])
+        # test: took too long for output, cancelled
+        #if x and y <= 8:
+        #    row = self._grid[y]
+        #    value = int(row[x])
+        #else:
+        #    value = -1
 
         return value
 
@@ -77,10 +85,11 @@ class Sudoku:
         If there is no empty spot, returns (-1,-1)
         """
         next_x, next_y = -1, -1
-
+# need to loop
         for y in range(9):
             for x in range(9):
-                if self.value_at(x, y) == 0 and next_x == -1 and next_y == -1:
+                # if self.value_at(x, y) == 0 and next_x == -1 and next_y == -1: remove next_x next_ because it is above for
+                if self.value_at(x, y) == 0:
                     next_x, next_y = x, y
 
         return next_x, next_y
@@ -91,6 +100,8 @@ class Sudoku:
 
         for j in range(9):
             values.append(self.value_at(j, i))
+        # error
+        # values = self._grid[i]
 
         return values
 
@@ -137,14 +148,14 @@ class Sudoku:
 
         for i in range(9):
             for value in values:
-                if value not in self.column_values(i):
+                if value not in self.column_values(i) and self.row_values(i) and self.block_values(i):
                     result = False
 
-                if value not in self.row_values(i):
-                    result = False
+                #if value not in self.row_values(i):
+                #    result = False
 
-                if value not in self.block_values(i):
-                    result = False
+                #if value not in self.block_values(i):
+                #    result = False
 
         return result
 
