@@ -20,7 +20,7 @@ class Sudoku:
 
         #print(self._grid[0][0])
     # new method check if they are the same, instead of having to: assert solution.value_at and assert untouched.value_at
-    def __eg__(self, other):
+    def __eq__(self, other):
         return self.__dict__ == other.__dict__
 
     def place(self, value: int, x: int, y: int) -> None:
@@ -80,7 +80,8 @@ class Sudoku:
                 options.remove(value)
 
         # Get the index of the block from x,y
-        block_index = self.block_index_of(x, y)
+        #block_index = self.block_index_of(x, y)
+        block_index = (y // 3) * 3 + x // 3
 
         # Remove all values from the block
         for value in self.block_values(block_index):
@@ -141,9 +142,9 @@ class Sudoku:
 
         return values
 
-    def block_index_of(self, x: int, y: int) -> int:
+    #def block_index_of(self, x: int, y: int) -> int:
         """Returns the index of a block from an index (x,y)."""
-        return (y // 3) * 3 + x // 3
+    #    return (y // 3) * 3 + x // 3
         
     def is_solved(self) -> bool:
         """
